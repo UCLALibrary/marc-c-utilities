@@ -17,7 +17,7 @@
 #define MAX_FIELD_SIZE		  9999
 #define MAX_FILENAME_SIZE	   255
 #define MAX_RECORD_SIZE		 99999
-#define MAX_SUBFIELD_SIZE	  4000	/* for Oracle: VARCHAR2(); not worth using CLOB for this purpose*/
+#define MAX_SUBFIELD_SIZE	  2000	/* for Oracle: NVARCHAR2() with AL16UTF16 charset; not worth using CLOB for this purpose*/
 #define SUBFIELD_CODE_SIZE		 1
 #define TAG_SIZE				 4	/* for SQL DB: 3 for MARC tag, 1 for subfield code */
 
@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
 					ch = Field[FieldPos];
 					if (ch == SF) {
 						/* Output the previous subfield (if it exists) */
-						if (SubfieldPos != 0) {
+						if (FieldPos != 0) {
 							Subfield[SubfieldPos] = 0;
 							PrintRow(OutputSubfieldFile, RecordID, FieldSeq, SubfieldSeq, Indicators, Tag, Subfield);
 							SubfieldPos = 0;
